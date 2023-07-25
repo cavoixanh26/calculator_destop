@@ -20,6 +20,8 @@ namespace Calculator_window_app
     /// </summary>
     public partial class MainWindow : Window
     {
+        double firstNumber;
+        double secondNumber;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +30,37 @@ namespace Calculator_window_app
 
         private void keyBoard_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            result.Text = "0";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Equal_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Div_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Mul_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Sub_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
