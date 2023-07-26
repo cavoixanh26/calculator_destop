@@ -22,6 +22,10 @@ namespace Calculator_window_app
     {
         double firstNumber;
         double secondNumber;
+        string op = "";
+        bool checkFirst;
+        bool checkOperator;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,36 +35,156 @@ namespace Calculator_window_app
         private void keyBoard_Loaded(object sender, RoutedEventArgs e)
         {
             result.Text = "0";
+            checkFirst = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (checkFirst)
+            {
+                result.Clear();
+            }
 
+            checkFirst = false;
+            Button btn = (Button)sender;
+            result.Text += btn.Content.ToString();
+            double.TryParse(result.Text,out secondNumber);
         }
 
         private void Equal_Click(object sender, RoutedEventArgs e)
         {
+            if (checkOperator)
+            {
+                double.TryParse(result.Text, out secondNumber);
+            }
+            else
+            {
+                double.TryParse(result.Text, out firstNumber);
+            }
 
+            double resultOperation;
+            switch(op)
+            {
+                case "+":
+                    resultOperation = firstNumber + secondNumber;
+                    break;
+                case "-":
+                    resultOperation = firstNumber - secondNumber;
+                    break;
+                case "x":
+                    resultOperation = firstNumber * secondNumber;
+                    break;
+                case "/":
+                    if (secondNumber == 0)
+                    {
+                        result.Text = "Cannot divide by zero";
+                        DisableButton(false);
+                    }
+                    resultOperation = firstNumber / secondNumber;
+                    break;
+                default:
+                    resultOperation = secondNumber;
+                    break;
+            }
+            result.Text = resultOperation.ToString();
+            if (checkFirst || op.IsNullOrEmpty())
+            {
+                operation.Text = $"{secondNumber}=";
+            }
+            else
+            {
+                operation.Text = $"{firstNumber} {op} {secondNumber}=";
+            }
+            checkOperator = false;
         }
 
-        private void Div_Click(object sender, RoutedEventArgs e)
+        private void Operator_Click(object sender, RoutedEventArgs e)
         {
-
+            Button btn = (Button)sender;
+            checkOperator = true;
+            double.TryParse(result.Text, out firstNumber);
+            op = btn.Content.ToString();
+            operation.Text = $"{result.Text} {op}";
+            result.Clear();
         }
 
-        private void Mul_Click(object sender, RoutedEventArgs e)
+        private void CE_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
-        private void Sub_Click(object sender, RoutedEventArgs e)
+        private void C_Click(object sender, RoutedEventArgs e)
         {
-
+            operation.Clear();
+            result.Text = "0";
+            secondNumber = 0;
+            firstNumber = 0;
+            checkFirst = true;
+            DisableButton(true);
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void D_Click(object sender, RoutedEventArgs e)
+        {
+            if (result.Text.Length != 1) 
+            {
+                result.Text = result.Text.Substring(0, result.Text.Length - 1); 
+            }
+            else
+            {
+                result.Text = "0";
+                
+            }
+        }
+
+        private void negative_Click(object sender, RoutedEventArgs e)
+        {
+            if(secondNumber != 0 || !result.Text.Equals("0"))
+            {
+                secondNumber *= -1;
+                result.Text = (double.Parse(result.Text)*-1).ToString();
+            }
+        }
+
+        private void OneDevideX_Click(object sender, RoutedEventArgs e)
+        {
+            if (!result.Text.Equals("0"))
+            {
+                result.Text = (1/secondNumber).ToString();
+                double.TryParse(result.Text, out secondNumber);
+            } else
+            {
+                result.Text = "Cannot divide by zero";
+                DisableButton(false);
+            }
+        }
+
+        private void DisableButton(bool status)
+        {
+            Negative.IsEnabled = status;
+            Dot.IsEnabled = status;
+            Plus.IsEnabled = status;
+            Sub.IsEnabled = status;
+            Mul.IsEnabled = status;
+            Div.IsEnabled = status; 
+            OneDevideX.IsEnabled = status;
+            Spuare.IsEnabled = status;
+        }
+
+        private void Spuare_Click(object sender, RoutedEventArgs e)
+        {
+            double.TryParse(result.Text, out var res);
+            operation.Text = $"sqr({res})";
+            result.Text = (Math.Pow(res, 2)).ToString();
+            double.TryParse(result.Text, out secondNumber);
+        }
+
+        private void SpuareRoot_Click(object sender, RoutedEventArgs e)
         {
 
+            double.TryParse(result.Text, out var res);
+            operation.Text = $"sqrt({res})";
+            result.Text = (Math.Sqrt(res)).ToString();
+            double.TryParse(result.Text, out secondNumber);
         }
     }
 }

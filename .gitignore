@@ -1,2 +1,12 @@
 Calculator window app/Calculator window app/obj/Debug/_IsIncrementalBuild
 *.vsidx
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+**/[Bb]in/
+**/[Oo]bj/
+*.pdb
+config
+.vscode/*
+.vs/
+.config/

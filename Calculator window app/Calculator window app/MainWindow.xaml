@@ -21,11 +21,6 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Margin" Value="2"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#cccccc"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
         <Style TargetType="Button" x:Key="TabButton-blue-background">
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
@@ -41,11 +36,6 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Margin" Value="2"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#cccccc"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid x:Name="form1" Background="#f5f5f5">
@@ -81,7 +71,8 @@
                     <fa:FontAwesome Icon="RotateLeft" FontSize="16" Padding="6"/>
                 </Button>
             </Grid>
-            <TextBox x:Name="result" Background="#f5f5f5" BorderThickness="0" Grid.Row="1" Grid.Column="1" FontSize="35" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="10"/>
+            <TextBox VerticalAlignment="Top"  x:Name="operation" Background="#f5f5f5" BorderThickness="0" Grid.Row="1" Grid.Column="1" FontSize="26" HorizontalAlignment="Right" Margin="10" Foreground="Gray"/>
+            <TextBox VerticalAlignment="Bottom"  x:Name="result" Background="#f5f5f5" BorderThickness="0" Grid.Row="1" Grid.Column="1" FontSize="40" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="10"/>
         </Grid>
         <Grid x:Name="keyBoard" Grid.Row="1"  Loaded="keyBoard_Loaded" Margin="2, 2, 2, 2">
             <Grid.ColumnDefinitions>
@@ -99,30 +90,29 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button Content="%" Grid.Column="0" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content="CE" Grid.Column="1" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content="C" Grid.Column="2" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content="D" Grid.Column="3" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content=""  Grid.Column="0" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content=""  Grid.Column="1" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content="" Grid.Column="2" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button x:Name="Div" Content="/" Grid.Column="3" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="Div_Click"/>
+            <Button x:Name="CE" Content="CE" Grid.Column="1" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="CE_Click"/>
+            <Button x:Name="C" Content="C" Grid.Column="2" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="C_Click"/>
+            <Button x:Name="D" Content="D" Grid.Column="3" Grid.Row="0"  Style="{StaticResource TabButton-white-background}" Click="D_Click"/>
+            <Button x:Name="OneDevideX" Content="1/x"  Grid.Column="0" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="OneDevideX_Click"/>
+            <Button x:Name="Spuare" Content="x^2"  Grid.Column="1" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="Spuare_Click"/>
+            <Button x:Name="SpuareRoot" Content="square root" Grid.Column="2" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="SpuareRoot_Click"/>
+            <Button x:Name="Div" Content="/" Grid.Column="3" Grid.Row="1"  Style="{StaticResource TabButton-white-background}" Click="Operator_Click"/>
             <Button Content="7" Grid.Column="0" Grid.Row="2"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="8" Grid.Column="1" Grid.Row="2"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="9" Grid.Column="2" Grid.Row="2"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button x:Name="Mul" Content="x" Grid.Column="3" Grid.Row="2"  Style="{StaticResource TabButton-white-background}" Click="Mul_Click"/>
+            <Button x:Name="Mul" Content="x" Grid.Column="3" Grid.Row="2"  Style="{StaticResource TabButton-white-background}" Click="Operator_Click"/>
             <Button Content="4" Grid.Column="0" Grid.Row="3"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="5" Grid.Column="1" Grid.Row="3"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="6" Grid.Column="2" Grid.Row="3"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button x:Name="Sub" Content="-" Grid.Column="3" Grid.Row="3"  Style="{StaticResource TabButton-white-background}" Click="Sub_Click"/>
+            <Button x:Name="Sub" Content="-" Grid.Column="3" Grid.Row="3"  Style="{StaticResource TabButton-white-background}" Click="Operator_Click"/>
             <Button Content="1" Grid.Column="0" Grid.Row="4"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="2" Grid.Column="1" Grid.Row="4"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="3" Grid.Column="2" Grid.Row="4"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button x:Name="Add" Content="+" Grid.Column="3" Grid.Row="4"  Style="{StaticResource TabButton-white-background}" Click="Add_Click"/>
-            <Button Content="" Grid.Column="0" Grid.Row="5"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
+            <Button x:Name="Plus" Content="+" Grid.Column="3" Grid.Row="4"  Style="{StaticResource TabButton-white-background}" Click="Operator_Click"/>
+            <Button x:Name="Negative" Content="+/-" Grid.Column="0" Grid.Row="5"  Style="{StaticResource TabButton-white-background}" Click="negative_Click"/>
             <Button Content="0" Grid.Column="1" Grid.Row="5"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
-            <Button Content="." Grid.Column="2" Grid.Row="5"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
+            <Button x:Name="Dot"  Content="." Grid.Column="2" Grid.Row="5"  Style="{StaticResource TabButton-white-background}" Click="Button_Click"/>
             <Button Content="=" Grid.Column="3" Grid.Row="5"  Style="{StaticResource TabButton-blue-background}" x:Name="Equal" Click="Equal_Click"/>
         </Grid>
     </Grid>
-    
 </Window>
