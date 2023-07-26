@@ -20,6 +20,8 @@ namespace Calculator_window_app
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string ErrorStringDivide = "xin chịu";
+
         double firstNumber;
         double secondNumber;
         string op = "";
@@ -36,6 +38,7 @@ namespace Calculator_window_app
         {
             result.Text = "0";
             checkFirst = true;
+            SpuareRoot.Content = "\u00b2\u221Ax";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -66,27 +69,25 @@ namespace Calculator_window_app
             switch(op)
             {
                 case "+":
-                    resultOperation = firstNumber + secondNumber;
+                    result.Text = (firstNumber + secondNumber).ToString();
                     break;
                 case "-":
-                    resultOperation = firstNumber - secondNumber;
+                    result.Text = (firstNumber - secondNumber).ToString();
                     break;
                 case "x":
-                    resultOperation = firstNumber * secondNumber;
+                    result.Text = (firstNumber * secondNumber).ToString();
                     break;
-                case "/":
-                    if (secondNumber == 0)
-                    {
-                        result.Text = "Cannot divide by zero";
-                        DisableButton(false);
-                    }
-                    resultOperation = firstNumber / secondNumber;
+                case "÷":
+                    result.Text = secondNumber == 0
+                        ? ErrorStringDivide
+                        : (firstNumber / secondNumber).ToString();
+                    DisableButton(false);
                     break;
                 default:
-                    resultOperation = secondNumber;
+                    result.Text = (secondNumber).ToString();
                     break;
             }
-            result.Text = resultOperation.ToString();
+
             if (checkFirst || op.IsNullOrEmpty())
             {
                 operation.Text = $"{secondNumber}=";
@@ -153,7 +154,7 @@ namespace Calculator_window_app
                 double.TryParse(result.Text, out secondNumber);
             } else
             {
-                result.Text = "Cannot divide by zero";
+                result.Text = ErrorStringDivide;
                 DisableButton(false);
             }
         }
